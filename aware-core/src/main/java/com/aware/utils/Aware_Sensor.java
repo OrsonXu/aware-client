@@ -79,7 +79,7 @@ public class Aware_Sensor extends Service {
         if (contextBroadcaster == null) {
             contextBroadcaster = new ContextBroadcaster(CONTEXT_PRODUCER, TAG, AUTHORITY);
         }
-
+        Log.d(TAG, "onCreate: Come on!!" + AUTHORITY);
         registerReceiver(contextBroadcaster, filter);
 
         REQUIRED_PERMISSIONS.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
@@ -141,7 +141,7 @@ public class Aware_Sensor extends Service {
      *
      * @author denzil
      */
-    public static class ContextBroadcaster extends BroadcastReceiver {
+    public class ContextBroadcaster extends BroadcastReceiver {
 
         private ContextProducer cp;
         private String tag;
@@ -155,6 +155,7 @@ public class Aware_Sensor extends Service {
 
         @Override
         public void onReceive(Context context, Intent intent) {
+            Log.e("TTTT", "ok!!!: " + this.provider);
             if (intent.getAction().equals(Aware.ACTION_AWARE_CURRENT_CONTEXT)) {
                 if (cp != null) {
                     cp.onContext();
@@ -191,7 +192,7 @@ public class Aware_Sensor extends Service {
         }
     }
 
-    private static ContextBroadcaster contextBroadcaster = null;
+    private ContextBroadcaster contextBroadcaster = null;
 
     @Override
     public IBinder onBind(Intent intent) {

@@ -5,6 +5,7 @@ import android.content.ContentProvider;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.SQLException;
@@ -227,6 +228,13 @@ public class Battery_Provider extends ContentProvider {
                 if (battery_id > 0) {
                     Uri batteryUri = ContentUris.withAppendedId(Battery_Data.CONTENT_URI, battery_id);
                     getContext().getContentResolver().notifyChange(batteryUri, null, false);
+
+                    // orson: send broadcast to receiver about save success
+                    Intent intent_saved = new Intent();
+                    intent_saved.setAction("save_success");
+                    intent_saved.putExtra("database_table", "battery");
+                    getContext().sendBroadcast(intent_saved);
+
                     return batteryUri;
                 }
                 database.endTransaction();

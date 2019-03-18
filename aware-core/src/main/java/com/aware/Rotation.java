@@ -232,9 +232,9 @@ public class Rotation extends Aware_Sensor implements SensorEventListener {
 
     @Override
     public void onCreate() {
+        AUTHORITY = Rotation_Provider.getAuthority(this);
         super.onCreate();
 
-        AUTHORITY = Rotation_Provider.getAuthority(this);
 
         TAG = "Aware::Rotation";
 

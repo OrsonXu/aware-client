@@ -5,6 +5,7 @@ import android.content.ContentProvider;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.SQLException;
@@ -159,6 +160,14 @@ public class Locations_Provider extends ContentProvider {
                     Uri locationUri = ContentUris.withAppendedId(
                             Locations_Data.CONTENT_URI, location_id);
                     getContext().getContentResolver().notifyChange(locationUri, null, false);
+
+
+                    // orson: send broadcast to receiver about save success
+                    Intent intent_saved = new Intent();
+                    intent_saved.setAction("save_success");
+                    intent_saved.putExtra("database_table", "locations");
+                    getContext().sendBroadcast(intent_saved);
+
                     return locationUri;
                 }
                 database.endTransaction();

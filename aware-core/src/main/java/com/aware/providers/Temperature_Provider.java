@@ -5,6 +5,7 @@ import android.content.ContentProvider;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.SQLException;
@@ -211,6 +212,12 @@ public class Temperature_Provider extends ContentProvider {
                     Uri accelDataUri = ContentUris.withAppendedId(
                             Temperature_Data.CONTENT_URI, accelData_id);
                     getContext().getContentResolver().notifyChange(accelDataUri,null, false);
+
+                    // orson: send broadcast to receiver about save success
+                    Intent intent_saved = new Intent();
+                    intent_saved.setAction("save_success");
+                    intent_saved.putExtra("database_table", "temperature");
+                    getContext().sendBroadcast(intent_saved);
                     return accelDataUri;
                 }
                 throw new SQLException("Failed to insert row into " + uri);
@@ -265,6 +272,11 @@ public class Temperature_Provider extends ContentProvider {
                         count++;
                     }
                 }
+                // orson: send broadcast to receiver about save success
+                Intent intent_saved = new Intent();
+                intent_saved.setAction("save_success");
+                intent_saved.putExtra("database_table", "temperature");
+                getContext().sendBroadcast(intent_saved);
                 break;
             default:
                 database.endTransaction();

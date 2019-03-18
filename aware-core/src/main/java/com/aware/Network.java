@@ -541,9 +541,9 @@ public class Network extends Aware_Sensor {
 
     @Override
     public void onCreate() {
+        AUTHORITY = Network_Provider.getAuthority(this);
         super.onCreate();
 
-        AUTHORITY = Network_Provider.getAuthority(this);
 
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         connManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);

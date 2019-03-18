@@ -203,9 +203,9 @@ public class Magnetometer extends Aware_Sensor implements SensorEventListener {
 
     @Override
     public void onCreate() {
+        AUTHORITY = Magnetometer_Provider.getAuthority(this);
         super.onCreate();
 
-        AUTHORITY = Magnetometer_Provider.getAuthority(this);
 
         mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         mMagnetometer = mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);

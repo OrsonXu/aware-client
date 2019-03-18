@@ -5,6 +5,7 @@ import android.content.ContentProvider;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.SQLException;
@@ -191,6 +192,13 @@ public class WiFi_Provider extends ContentProvider {
                     Uri wifiUri = ContentUris.withAppendedId(WiFi_Data.CONTENT_URI,
                             wifiID);
                     getContext().getContentResolver().notifyChange(wifiUri, null, false);
+
+                    // orson: send broadcast to receiver about save success
+                    Intent intent_saved = new Intent();
+                    intent_saved.setAction("save_success");
+                    intent_saved.putExtra("database_table", "wifi");
+                    getContext().sendBroadcast(intent_saved);
+
                     return wifiUri;
                 }
                 database.endTransaction();

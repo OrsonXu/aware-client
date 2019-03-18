@@ -141,9 +141,9 @@ public class Traffic extends Aware_Sensor {
 
     @Override
     public void onCreate() {
+        AUTHORITY = Traffic_Provider.getAuthority(this);
         super.onCreate();
 
-        AUTHORITY = Traffic_Provider.getAuthority(this);
 
         startTotalRxBytes = TrafficStats.getTotalRxBytes();
         startTotalTxBytes = TrafficStats.getTotalTxBytes();

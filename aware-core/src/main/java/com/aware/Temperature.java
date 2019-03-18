@@ -198,9 +198,9 @@ public class Temperature extends Aware_Sensor implements SensorEventListener {
     @SuppressWarnings("deprecation")
     @Override
     public void onCreate() {
+        AUTHORITY = Temperature_Provider.getAuthority(this);
         super.onCreate();
 
-        AUTHORITY = Temperature_Provider.getAuthority(this);
 
         mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 

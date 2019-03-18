@@ -102,9 +102,9 @@ public class Screen extends Aware_Sensor {
 
     @Override
     public void onCreate() {
+        AUTHORITY = Screen_Provider.getAuthority(this);
         super.onCreate();
 
-        AUTHORITY = Screen_Provider.getAuthority(this);
 
         IntentFilter filter = new IntentFilter();
         filter.addAction(Intent.ACTION_SCREEN_ON);

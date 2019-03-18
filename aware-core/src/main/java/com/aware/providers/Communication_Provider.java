@@ -5,6 +5,7 @@ import android.content.ContentProvider;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.SQLException;
@@ -188,6 +189,13 @@ public class Communication_Provider extends ContentProvider {
                     Uri callsUri = ContentUris.withAppendedId(
                             Calls_Data.CONTENT_URI, call_id);
                     getContext().getContentResolver().notifyChange(callsUri, null, false);
+
+                    // orson: send broadcast to receiver about save success
+                    Intent intent_saved = new Intent();
+                    intent_saved.setAction("save_success");
+                    intent_saved.putExtra("database_table", "calls");
+                    getContext().sendBroadcast(intent_saved);
+
                     return callsUri;
                 }
                 database.endTransaction();
@@ -201,6 +209,13 @@ public class Communication_Provider extends ContentProvider {
                     Uri messagesUri = ContentUris.withAppendedId(
                             Messages_Data.CONTENT_URI, message_id);
                     getContext().getContentResolver().notifyChange(messagesUri, null, false);
+
+                    // orson: send broadcast to receiver about save success
+                    Intent intent_saved = new Intent();
+                    intent_saved.setAction("save_success");
+                    intent_saved.putExtra("database_table", "messages");
+                    getContext().sendBroadcast(intent_saved);
+
                     return messagesUri;
                 }
                 database.endTransaction();

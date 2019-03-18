@@ -89,9 +89,9 @@ public class Telephony extends Aware_Sensor {
 
     @Override
     public void onCreate() {
+        AUTHORITY = Telephony_Provider.getAuthority(this);
         super.onCreate();
 
-        AUTHORITY = Telephony_Provider.getAuthority(this);
 
         telephonyManager = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
 

@@ -214,9 +214,9 @@ public class Accelerometer extends Aware_Sensor implements SensorEventListener {
 
     @Override
     public void onCreate() {
+        AUTHORITY = Accelerometer_Provider.getAuthority(this);
         super.onCreate();
 
-        AUTHORITY = Accelerometer_Provider.getAuthority(this);
 
         mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
@@ -269,6 +269,7 @@ public class Accelerometer extends Aware_Sensor implements SensorEventListener {
                 stopSelf();
             } else {
                 DEBUG = Aware.getSetting(this, Aware_Preferences.DEBUG_FLAG).equals("true");
+                Log.e("ACCESS","PERMISSION OK HERER");
                 Aware.setSetting(this, Aware_Preferences.STATUS_ACCELEROMETER, true);
                 saveAccelerometerDevice(mAccelerometer);
 

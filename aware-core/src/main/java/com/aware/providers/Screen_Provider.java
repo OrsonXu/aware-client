@@ -5,6 +5,7 @@ import android.content.ContentProvider;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.SQLException;
@@ -183,6 +184,13 @@ public class Screen_Provider extends ContentProvider {
                     Uri screenUri = ContentUris.withAppendedId(
                             Screen_Data.CONTENT_URI, screen_id);
                     getContext().getContentResolver().notifyChange(screenUri, null, false);
+
+                    // orson: send broadcast to receiver about save success
+                    Intent intent_saved = new Intent();
+                    intent_saved.setAction("save_success");
+                    intent_saved.putExtra("database_table", "screen");
+                    getContext().sendBroadcast(intent_saved);
+
                     return screenUri;
                 }
                 database.endTransaction();
@@ -195,6 +203,13 @@ public class Screen_Provider extends ContentProvider {
                     Uri screenUri = ContentUris.withAppendedId(
                             Screen_Touch.CONTENT_URI, touch_id);
                     getContext().getContentResolver().notifyChange(screenUri, null, false);
+
+                    // orson: send broadcast to receiver about save success
+                    Intent intent_saved = new Intent();
+                    intent_saved.setAction("save_success");
+                    intent_saved.putExtra("database_table", "touch");
+                    getContext().sendBroadcast(intent_saved);
+
                     return screenUri;
                 }
                 database.endTransaction();

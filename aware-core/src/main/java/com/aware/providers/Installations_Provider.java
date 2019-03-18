@@ -5,6 +5,7 @@ import android.content.ContentProvider;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.SQLException;
@@ -156,6 +157,13 @@ public class Installations_Provider extends ContentProvider {
                     Uri installationsUri = ContentUris.withAppendedId(
                             Installations_Data.CONTENT_URI, installations_id);
                     getContext().getContentResolver().notifyChange(installationsUri, null, false);
+
+                    // orson: send broadcast to receiver about save success
+                    Intent intent_saved = new Intent();
+                    intent_saved.setAction("save_success");
+                    intent_saved.putExtra("database_table", "installations");
+                    getContext().sendBroadcast(intent_saved);
+
                     return installationsUri;
                 }
                 database.endTransaction();

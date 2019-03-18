@@ -5,6 +5,7 @@ import android.content.ContentProvider;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.SQLException;
@@ -151,6 +152,13 @@ public class Traffic_Provider extends ContentProvider {
                     Uri trafficUri = ContentUris.withAppendedId(
                             Traffic_Data.CONTENT_URI, traffic_id);
                     getContext().getContentResolver().notifyChange(trafficUri, null, false);
+
+                    // orson: send broadcast to receiver about save success
+                    Intent intent_saved = new Intent();
+                    intent_saved.setAction("save_success");
+                    intent_saved.putExtra("database_table", "network_traffic");
+                    getContext().sendBroadcast(intent_saved);
+
                     return trafficUri;
                 }
                 database.endTransaction();

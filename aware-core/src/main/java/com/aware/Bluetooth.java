@@ -116,9 +116,9 @@ public class Bluetooth extends Aware_Sensor {
 
     @Override
     public void onCreate() {
+        AUTHORITY = Bluetooth_Provider.getAuthority(this);
         super.onCreate();
 
-        AUTHORITY = Bluetooth_Provider.getAuthority(this);
 
         notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);

@@ -5,6 +5,7 @@ import android.content.ContentProvider;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.SQLException;
@@ -215,6 +216,13 @@ public class Gyroscope_Provider extends ContentProvider {
                     Uri gyroDataUri = ContentUris.withAppendedId(
                             Gyroscope_Data.CONTENT_URI, gyroData_id);
                     getContext().getContentResolver().notifyChange(gyroDataUri,null, false);
+
+
+                    // orson: send broadcast to receiver about save success
+                    Intent intent_saved = new Intent();
+                    intent_saved.setAction("save_success");
+                    intent_saved.putExtra("database_table", "gyroscope");
+                    getContext().sendBroadcast(intent_saved);
                     return gyroDataUri;
                 }
                 database.endTransaction();
@@ -270,6 +278,12 @@ public class Gyroscope_Provider extends ContentProvider {
                         count++;
                     }
                 }
+
+                // orson: send broadcast to receiver about save success
+                Intent intent_saved = new Intent();
+                intent_saved.setAction("save_success");
+                intent_saved.putExtra("database_table", "gyroscope");
+                getContext().sendBroadcast(intent_saved);
                 break;
             default:
                 database.endTransaction();

@@ -691,6 +691,7 @@ public class Aware extends Service {
                     if (watchdog == null) {
                         watchdog = new Scheduler.Schedule(SCHEDULE_KEEP_ALIVE);
                         watchdog.setInterval(getApplicationContext().getResources().getInteger(R.integer.keep_alive_interval_min))
+//                        watchdog.setInterval(1) // used for debugging
                                 .setActionType(Scheduler.ACTION_TYPE_SERVICE)
                                 .setActionIntentAction(ACTION_AWARE_KEEP_ALIVE)
                                 .setActionClass(getPackageName() + "/" + getClass().getName());
@@ -1806,6 +1807,9 @@ public class Aware extends Service {
                         if (schedulers.length() > 0)
                             Scheduler.setSchedules(getApplicationContext(), schedulers);
 
+                        //Start sensors
+                        startAWARE(getApplicationContext());
+                        
                         //Start plugins
                         for (String p : active_plugins) {
                             Aware.startPlugin(getApplicationContext(), p);
@@ -1814,7 +1818,9 @@ public class Aware extends Service {
                         //Let others know that we just joined a study
                         sendBroadcast(new Intent(Aware.ACTION_JOINED_STUDY));
 
-                        Aware.startAccelerometer(getApplicationContext());
+
+                        // Orson: additional line?
+//                        Aware.startAccelerometer(getApplicationContext());
 
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -2341,8 +2347,8 @@ public class Aware extends Service {
         } else stopESM(context);
 
         if (Aware.getSetting(context, Aware_Preferences.STATUS_ACCELEROMETER).equals("true")) {
-            startAccelerometer(context);
-        } else stopAccelerometer(context);
+            startAccelerometer(context);Log.e("ACCESS", "START!!!");
+        } else {stopAccelerometer(context); Log.e("ACCESS", "STOP!!!");};
 
         if (Aware.getSetting(context, Aware_Preferences.STATUS_INSTALLATIONS).equals("true")) {
             startInstallations(context);
@@ -2395,8 +2401,8 @@ public class Aware extends Service {
         } else stopGyroscope(context);
 
         if (Aware.getSetting(context, Aware_Preferences.STATUS_WIFI).equals("true")) {
-            startWiFi(context);
-        } else stopWiFi(context);
+            startWiFi(context);Log.e("BBBLLLUUUEEE", "START!!!");
+        } else {stopWiFi(context);Log.e("BBBLLLUUUEEE", "STOP!!!");}
 
         if (Aware.getSetting(context, Aware_Preferences.STATUS_TELEPHONY).equals("true")) {
             startTelephony(context);
@@ -2435,8 +2441,8 @@ public class Aware extends Service {
         } else stopTemperature(context);
 
         if (Aware.getSetting(context, Aware_Preferences.STATUS_KEYBOARD).equals("true")) {
-            startKeyboard(context);
-        } else stopKeyboard(context);
+            startKeyboard(context); Log.e("KEYBOARD","START!!!!");
+        } else {stopKeyboard(context);Log.e("KEYBOARD","STOP!!!!");}
     }
 
     public static void startPlugins(Context context) {

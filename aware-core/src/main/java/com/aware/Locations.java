@@ -266,9 +266,9 @@ public class Locations extends Aware_Sensor implements LocationListener {
 
     @Override
     public void onCreate() {
+        AUTHORITY = Locations_Provider.getAuthority(this);
         super.onCreate();
 
-        AUTHORITY = Locations_Provider.getAuthority(this);
 
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 

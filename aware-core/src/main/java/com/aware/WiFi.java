@@ -74,9 +74,9 @@ public class WiFi extends Aware_Sensor {
 
     @Override
     public void onCreate() {
+        AUTHORITY = WiFi_Provider.getAuthority(this);
         super.onCreate();
 
-        AUTHORITY = WiFi_Provider.getAuthority(this);
 
         alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         wifiManager = (WifiManager) this.getApplicationContext().getSystemService(WIFI_SERVICE);

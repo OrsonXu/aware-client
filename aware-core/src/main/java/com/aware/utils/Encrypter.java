@@ -194,8 +194,11 @@ public class Encrypter {
      * Hash a phone number.  Default to hashing even if blank.
      */
     public static final String hashPhone(Context context, String clear) {
+        Log.e("CALLLLL cleaned number before", clear);
+        String clean = clear.replaceAll("[^\\d]", "" );
+        Log.e("CALLLLL cleaned number", clean);
         String hashProgram = Aware.getSetting(context.getApplicationContext(), Aware_Preferences.HASH_FUNCTION_PHONE);
-        return _hashProgram(context, clear, hashProgram);
+        return _hashProgram(context, clean, hashProgram);
     }
 
     /*

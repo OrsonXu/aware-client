@@ -161,8 +161,8 @@ public class Processor extends Aware_Sensor {
 
     @Override
     public void onCreate() {
-        super.onCreate();
         AUTHORITY = Processor_Provider.getAuthority(this);
+        super.onCreate();
 
         if (Aware.DEBUG) Log.d(TAG, "Processor service created");
     }

@@ -192,9 +192,9 @@ public class Proximity extends Aware_Sensor implements SensorEventListener {
 
     @Override
     public void onCreate() {
+        AUTHORITY = Proximity_Provider.getAuthority(this);
         super.onCreate();
 
-        AUTHORITY = Proximity_Provider.getAuthority(this);
 
         TAG = "AWARE::Proximity";
 

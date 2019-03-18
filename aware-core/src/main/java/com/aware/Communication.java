@@ -366,9 +366,9 @@ public class Communication extends Aware_Sensor {
 
     @Override
     public void onCreate() {
+        AUTHORITY = Communication_Provider.getAuthority(this);
         super.onCreate();
 
-        AUTHORITY = Communication_Provider.getAuthority(this);
 
         telephonyManager = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
 

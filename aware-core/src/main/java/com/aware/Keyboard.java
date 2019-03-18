@@ -21,9 +21,9 @@ public class Keyboard extends Aware_Sensor {
 
     @Override
     public void onCreate() {
+        AUTHORITY = Keyboard_Provider.getAuthority(this);
         super.onCreate();
 
-        AUTHORITY = Keyboard_Provider.getAuthority(this);
 
         TAG = "AWARE::Keyboard";
 

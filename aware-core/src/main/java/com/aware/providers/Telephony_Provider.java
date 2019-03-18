@@ -5,6 +5,7 @@ import android.content.ContentProvider;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.SQLException;
@@ -314,6 +315,13 @@ public class Telephony_Provider extends ContentProvider {
                     Uri tele_uri = ContentUris.withAppendedId(
                             Telephony_Data.CONTENT_URI, tele_id);
                     getContext().getContentResolver().notifyChange(tele_uri, null, false);
+
+                    // orson: send broadcast to receiver about save success
+                    Intent intent_saved = new Intent();
+                    intent_saved.setAction("save_success");
+                    intent_saved.putExtra("database_table", "telephony");
+                    getContext().sendBroadcast(intent_saved);
+
                     return tele_uri;
                 }
                 database.endTransaction();

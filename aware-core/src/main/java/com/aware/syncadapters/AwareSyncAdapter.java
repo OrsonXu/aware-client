@@ -97,6 +97,7 @@ public class AwareSyncAdapter extends AbstractThreadedSyncAdapter {
         if (!Aware.getSetting(mContext, Aware_Preferences.WEBSERVICE_SILENT).equals("true"))
             notManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
 
+        Log.e("OnPerformSync:" + authority, " TABLE: " + String.join(",",DATABASE_TABLES) + " FIELDS: " + String.join(",",TABLES_FIELDS) + " URI: " + CONTEXT_URIS[0]);
         if (DATABASE_TABLES != null && TABLES_FIELDS != null && CONTEXT_URIS != null) {
             for (int i = 0; i < DATABASE_TABLES.length; i++) {
                 offloadData(mContext, DATABASE_TABLES[i], Aware.getSetting(getContext(), Aware_Preferences.WEBSERVICE_SERVER), TABLES_FIELDS[i], CONTEXT_URIS[i]);
@@ -207,6 +208,11 @@ public class AwareSyncAdapter extends AbstractThreadedSyncAdapter {
                             break;
                         } else {
                             removeFrom = lastSynced;
+                            // orson: send broadcast to receiver about sync success
+                            Intent intent_synced = new Intent();
+                            intent_synced.setAction("sync_success");
+                            intent_synced.putExtra("database_table", database_table);
+                            getContext().sendBroadcast(intent_synced);
                         }
                         uploaded_records += MAX_POST_SIZE;
                     }

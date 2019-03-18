@@ -341,9 +341,9 @@ public class Mqtt extends Aware_Sensor implements MqttCallback {
 
     @Override
     public void onCreate() {
+        AUTHORITY = Mqtt_Provider.getAuthority(this);
         super.onCreate();
 
-        AUTHORITY = Mqtt_Provider.getAuthority(this);
 
         IntentFilter filter = new IntentFilter();
         filter.addAction(Mqtt.ACTION_AWARE_MQTT_TOPIC_SUBSCRIBE);

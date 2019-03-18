@@ -143,8 +143,8 @@ dependencies {
     api (project(":com.aware.plugin.sensortag")) {
         exclude group:'com.github.denzilferreira',module:'aware-client'
     }
-    api (project(":com.aware.plugin.sentimental")) {
-        exclude group:'com.github.denzilferreira',module:'aware-client'
-    }
+//    api (project(":com.aware.plugin.sentimental")) {
+//        exclude group:'com.github.denzilferreira',module:'aware-client'
+//    }
 }
 

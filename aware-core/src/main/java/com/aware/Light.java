@@ -200,9 +200,9 @@ public class Light extends Aware_Sensor implements SensorEventListener {
 
     @Override
     public void onCreate() {
+        AUTHORITY = Light_Provider.getAuthority(this);
         super.onCreate();
 
-        AUTHORITY = Light_Provider.getAuthority(this);
 
         mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         mLight = mSensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);

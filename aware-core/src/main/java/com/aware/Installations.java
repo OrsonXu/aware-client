@@ -95,9 +95,9 @@ public class Installations extends Aware_Sensor {
 
     @Override
     public void onCreate() {
+        AUTHORITY = Installations_Provider.getAuthority(this);
         super.onCreate();
 
-        AUTHORITY = Installations_Provider.getAuthority(this);
 
         CONTEXT_PRODUCER = new Aware_Sensor.ContextProducer() {
             @Override

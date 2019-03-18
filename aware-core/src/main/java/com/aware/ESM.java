@@ -244,9 +244,9 @@ public class ESM extends Aware_Sensor {
 
     @Override
     public void onCreate() {
+        AUTHORITY = ESM_Provider.getAuthority(this);
         super.onCreate();
 
-        AUTHORITY = ESM_Provider.getAuthority(this);
 
         mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
